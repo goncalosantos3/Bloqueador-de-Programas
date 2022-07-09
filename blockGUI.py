@@ -1,4 +1,5 @@
-from tkinter import * 
+from tkinter import *
+from turtle import width 
 from PIL import ImageTk,Image
 from pyparsing import col
 
@@ -56,12 +57,19 @@ myButton4.grid(row=4, column=0)
 myButton3 = Button(root, text="Criar nova restrição a um novo programa", command=adicionaRestrição)
 myButton3.grid(row=5,column=0)
 
-global myListBox
-myListBox = Listbox(root)
-myListBox.grid(row=2,column=0)
+my_frame = Frame(root)
+my_scrollbar = Scrollbar(my_frame, orient=VERTICAL)
+
+#global myListBox
+myListBox = Listbox(my_frame, yscrollcommand=my_scrollbar.set, width=30)
+
+my_scrollbar.config(command=myListBox.yview)
+my_scrollbar.pack(side=RIGHT, fill=Y)
+my_frame.grid(row=2, column=0)
+myListBox.pack()
 
 restricoes = ["A tua mãe", "Aquela gorda", "A tua prima aquela obesa", "A tua avó parece um camião",
-    "1", "2", "3", "4", "5"]
+    "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 for item in restricoes:
     myListBox.insert(END, item)
 
