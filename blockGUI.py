@@ -1,6 +1,7 @@
+from tabnanny import check
 from tkinter import *
 from turtle import width 
-from PIL import ImageTk,Image
+from PIL import ImageTk, Image
 from pyparsing import col
 
 #
@@ -11,16 +12,72 @@ from pyparsing import col
 def adicionaRestrição():
     top = Toplevel()
     top.title("Bloqueador de programas") 
+    top.iconbitmap('C:/Users/smgon/Phyton/Bloqueador-de-Programas/Sawyer_Pilar.ico')
+    top.geometry("500x500")
+
+    var1 = IntVar() 
+    var2 = IntVar()
+    var3 = IntVar()
+    var4 = IntVar()
+    var5 = IntVar()
+    var6 = IntVar()
+    var7 = IntVar()
+    var8 = IntVar()
+    c1 = Checkbutton(top, text="Todos os dias", variable= var1)
+    c2 = Checkbutton(top, text="Segunda-feira", variable= var2)
+    c3 = Checkbutton(top, text="Terça-feira", variable= var3)
+    c4 = Checkbutton(top, text="Quarta-feira", variable= var4)  
+    c5 = Checkbutton(top, text="Quinta-feira", variable= var5) 
+    c6 = Checkbutton(top, text="Sexta-feira", variable= var6)
+    c7 = Checkbutton(top, text="Sábado", variable= var7)
+    c8 = Checkbutton(top, text="Domingo", variable= var8)
+    c1.grid(row=1,column=0)
+    c2.grid(row=2,column=0)
+    c3.grid(row=3,column=0)
+    c4.grid(row=4,column=0)
+    c5.grid(row=5,column=0)
+    c6.grid(row=6,column=0)
+    c7.grid(row=7,column=0)
+    c8.grid(row=8,column=0)
+
+    i = 0
+    while i < 8:       
+        lab1 = Label(top, text="Das")
+        lab2 = Label(top, text=":")
+        lab3 = Label(top, text="Até") 
+        lab1.grid(row=i+1, column=1)
+        lab2.grid(row=i+1, column=3)
+        lab3.grid(row=i+1, column=5)
+
+        options1 = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
+        options2 = [0, 30]
+
+        clicked1 = StringVar()
+        clicked1.set(options1[0])
+
+        clicked2 = StringVar()
+        clicked2.set(options2[0])
+
+        drop1 = OptionMenu(top, clicked1, *options1)
+        drop1.grid(row=i+1,column=2)
+
+        drop2 = OptionMenu(top, clicked2, *options2)
+        drop2.grid(row=i+1, column=4)
+        i = i+1
+
     aplicar = Button(top, text="Aplicar")
     aplicar.grid(row=10,column=10)
     cancelar = Button(top, text="Cancelar", command=top.destroy)
     cancelar.grid(row=10,column=11)
+
     top.mainloop()
 
 
 def alteraRestrição():
     top = Toplevel()
     top.title("Bloqueador de programas")
+    top.iconbitmap('C:/Users/smgon/Phyton/Bloqueador-de-Programas/Sawyer_Pilar.ico')
+
     my_label = Label(top, text = "Alterar restrição ao programa " + myListBox.get(ANCHOR) + " :")
     my_label.pack()
     #Configurações e alterações possiveis (desenvolver mais tarde)
@@ -36,6 +93,7 @@ def delete():
 
 root = Tk()
 root.title("Bloqueador de Programas")
+root.iconbitmap('C:/Users/smgon/Phyton/Bloqueador-de-Programas/Sawyer_Pilar.ico')
 root.geometry("500x350")
 #Ícone do canto superior esquerdo
 #root.iconbitmap('@/home/goncalo/Desktop/Python/Bloqueador-de-Programas/Sawyer_Pilar.xbm')
