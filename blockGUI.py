@@ -1,3 +1,4 @@
+from ast import Lambda
 from tabnanny import check
 from tkinter import *
 from turtle import width 
@@ -9,11 +10,92 @@ from pyparsing import col
 #   1. Temos que definir um widget (butão, janela, barra, qualquer merda de interação com o user)
 #   2. Depois, temos que inserir o widget criado no ecrã da maneira que quisermos 
 
+def aplicaNovaRestrição(clicks, variables, top):
+    
+    if (variables[0].get() == 1):#Todos os dias
+        horas = []
+        horas.append(clicks[0].get() + ":" + clicks[1].get())
+        horas.append(clicks[2].get() + ":" + clicks[3].get())
+        print(horas[0])
+        print(horas[1])
+    top.destroy()
+
+
+def ativarOptionMenu(optionMenus, number, var1):
+    
+    i=0
+    while(i<4):
+        optionMenus[number+i].configure(state = NORMAL)
+        i=i+1
+
 def adicionaRestrição():
     top = Toplevel()
     top.title("Bloqueador de programas") 
     top.iconbitmap('C:/Users/smgon/Phyton/Bloqueador-de-Programas/Sawyer_Pilar.ico')
     top.geometry("500x500")
+
+    lab0 = Label(top, text="Programa a restringir:")
+    lab0.grid(row=0, column=0)
+
+    programas = ["League of Legends"]
+
+    clicked0 = StringVar()
+    drop0 = OptionMenu(top, clicked0, *programas)
+    drop0.grid(row=0, column=1)
+
+    i = 0
+    optionMenus = []
+    clicks = []
+    while i < 8:       
+        lab1 = Label(top, text="Das")
+        lab2 = Label(top, text=":")
+        lab3 = Label(top, text="Até") 
+        lab1.grid(row=i+1, column=1)
+        lab2.grid(row=i+1, column=3)
+        lab3.grid(row=i+1, column=5)
+
+        options1 = ["00",1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
+        options2 = ["00", 30]
+
+        clicked1 = StringVar()
+        clicked1.set(options1[0])
+
+        clicked2 = StringVar()
+        clicked2.set(options2[0])
+
+        clicked3 = StringVar()
+        clicked3.set(options1[0])
+
+        clicked4 = StringVar()
+        clicked4.set(options2[0])
+
+        drop1 = OptionMenu(top, clicked1, *options1)
+        drop1.grid(row=i+1,column=2)
+        drop1.configure(state=DISABLED)
+
+        drop2 = OptionMenu(top, clicked2, *options2)
+        drop2.grid(row=i+1, column=4)
+        drop2.configure(state=DISABLED)
+
+        drop3 = OptionMenu(top, clicked3, *options1)
+        drop3.grid(row=i+1,column=6)
+        drop3.configure(state=DISABLED)
+
+        drop4 = OptionMenu(top, clicked4, *options2)
+        drop4.grid(row=i+1, column=8)
+        drop4.configure(state=DISABLED)
+
+        optionMenus.append(drop1)
+        optionMenus.append(drop2)
+        optionMenus.append(drop3)
+        optionMenus.append(drop4)
+
+        clicks.append(clicked1)
+        clicks.append(clicked2)
+        clicks.append(clicked3)
+        clicks.append(clicked4)
+
+        i = i+1
 
     var1 = IntVar() 
     var2 = IntVar()
@@ -23,14 +105,14 @@ def adicionaRestrição():
     var6 = IntVar()
     var7 = IntVar()
     var8 = IntVar()
-    c1 = Checkbutton(top, text="Todos os dias", variable= var1)
-    c2 = Checkbutton(top, text="Segunda-feira", variable= var2)
-    c3 = Checkbutton(top, text="Terça-feira", variable= var3)
-    c4 = Checkbutton(top, text="Quarta-feira", variable= var4)  
-    c5 = Checkbutton(top, text="Quinta-feira", variable= var5) 
-    c6 = Checkbutton(top, text="Sexta-feira", variable= var6)
-    c7 = Checkbutton(top, text="Sábado", variable= var7)
-    c8 = Checkbutton(top, text="Domingo", variable= var8)
+    c1 = Checkbutton(top, text="Todos os dias", variable= var1, command=lambda: ativarOptionMenu(optionMenus, 0, var1))
+    c2 = Checkbutton(top, text="Segunda-feira", variable= var2, command=lambda: ativarOptionMenu(optionMenus, 4, var1))
+    c3 = Checkbutton(top, text="Terça-feira", variable= var3, command=lambda: ativarOptionMenu(optionMenus, 8, var1))
+    c4 = Checkbutton(top, text="Quarta-feira", variable= var4, command=lambda: ativarOptionMenu(optionMenus, 12, var1))  
+    c5 = Checkbutton(top, text="Quinta-feira", variable= var5, command=lambda: ativarOptionMenu(optionMenus, 16, var1)) 
+    c6 = Checkbutton(top, text="Sexta-feira", variable= var6, command=lambda: ativarOptionMenu(optionMenus, 20, var1))
+    c7 = Checkbutton(top, text="Sábado", variable= var7, command=lambda: ativarOptionMenu(optionMenus, 24, var1))
+    c8 = Checkbutton(top, text="Domingo", variable= var8, command=lambda: ativarOptionMenu(optionMenus, 28, var1))
     c1.grid(row=1,column=0)
     c2.grid(row=2,column=0)
     c3.grid(row=3,column=0)
@@ -39,33 +121,10 @@ def adicionaRestrição():
     c6.grid(row=6,column=0)
     c7.grid(row=7,column=0)
     c8.grid(row=8,column=0)
+    
+    variables = [var1,var2,var3,var4,var5,var6,var7,var8]
 
-    i = 0
-    while i < 8:       
-        lab1 = Label(top, text="Das")
-        lab2 = Label(top, text=":")
-        lab3 = Label(top, text="Até") 
-        lab1.grid(row=i+1, column=1)
-        lab2.grid(row=i+1, column=3)
-        lab3.grid(row=i+1, column=5)
-
-        options1 = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
-        options2 = [0, 30]
-
-        clicked1 = StringVar()
-        clicked1.set(options1[0])
-
-        clicked2 = StringVar()
-        clicked2.set(options2[0])
-
-        drop1 = OptionMenu(top, clicked1, *options1)
-        drop1.grid(row=i+1,column=2)
-
-        drop2 = OptionMenu(top, clicked2, *options2)
-        drop2.grid(row=i+1, column=4)
-        i = i+1
-
-    aplicar = Button(top, text="Aplicar")
+    aplicar = Button(top, text="Aplicar", command=lambda: aplicaNovaRestrição(clicks, variables, top))
     aplicar.grid(row=10,column=10)
     cancelar = Button(top, text="Cancelar", command=top.destroy)
     cancelar.grid(row=10,column=11)
