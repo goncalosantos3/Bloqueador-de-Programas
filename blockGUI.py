@@ -10,7 +10,7 @@ from pyparsing import col
 #   1. Temos que definir um widget (butão, janela, barra, qualquer merda de interação com o user)
 #   2. Depois, temos que inserir o widget criado no ecrã da maneira que quisermos 
 
-def aplicaNovaRestrição(clicks, variables, top, myListBox, clicked0):
+def aplicaNovaRestrição(clicks, variables, top, myListBox, clicked0, fRestriçoes):
     
     #Variables-> Dias da semana em que a restrição se aplica
     #Clicks-> As horas de cada dia em que a restrição se aplica
@@ -23,6 +23,8 @@ def aplicaNovaRestrição(clicks, variables, top, myListBox, clicked0):
         horas.append(clicks[0].get() + ":" + clicks[1].get())
         horas.append(clicks[2].get() + ":" + clicks[3].get())
         myListBox.insert(END, clicked0.get() + " bloqueado todos os dias das " + horas[0] + " até às " + horas[1])
+        fRestriçoes.write(clicked0.get() + " bloqueado todos os dias das " + horas[0] + " até às " + horas[1] + "\n")
+        fRestriçoes.flush()
     top.destroy()
 
 
@@ -33,7 +35,7 @@ def ativarOptionMenu(optionMenus, number, var1):
         optionMenus[number+i].configure(state = NORMAL)
         i=i+1
 
-def adicionaRestrição(myListBox):
+def adicionaRestrição(myListBox, fRestriçoes):
     top = Toplevel()
     top.title("Bloqueador de programas") 
     #top.iconbitmap('C:/Users/smgon/Phyton/Bloqueador-de-Programas/Sawyer_Pilar.ico')
@@ -129,7 +131,7 @@ def adicionaRestrição(myListBox):
     
     variables = [var1,var2,var3,var4,var5,var6,var7,var8]
 
-    aplicar = Button(top, text="Aplicar", command=lambda: aplicaNovaRestrição(clicks, variables, top, myListBox, clicked0))
+    aplicar = Button(top, text="Aplicar", command=lambda: aplicaNovaRestrição(clicks, variables, top, myListBox, clicked0, fRestriçoes))
     aplicar.grid(row=10,column=10)
     cancelar = Button(top, text="Cancelar", command=top.destroy)
     cancelar.grid(row=10,column=11)
@@ -137,7 +139,7 @@ def adicionaRestrição(myListBox):
     top.mainloop()
 
 
-def alteraRestrição(myListBox):
+def alteraRestrição(myListBox, fRestriçoes):
     top = Toplevel()
     top.title("Bloqueador de programas")
     #top.iconbitmap('C:/Users/smgon/Phyton/Bloqueador-de-Programas/Sawyer_Pilar.ico')
@@ -232,9 +234,21 @@ def alteraRestrição(myListBox):
 
     top.mainloop()
 
-def delete(myListBox):
+def delete(myListBox, fRestriçoes):
+    programa = myListBox.get(ANCHOR)
+    lines = fRestriçoes.readlines()
+    restrições = open('restrições.txt', "w")
     myListBox.delete(ANCHOR)
+    for line in lines:
+        if line != programa:
+            restrições.write(line)
+    restrições.flush()
+    restrições.close()
     #Aqui tem que se eliminar a restrição e não apenas da list box!!!
+
+##################################################################################################################################################################################
+
+fRestriçoes = open('restrições.txt', 'r+')# r+ -> read and write the file
 
 root = Tk()
 root.title("Bloqueador de Programas")
@@ -263,13 +277,15 @@ myListBox.pack()
 myButton1 = Button(root, text="Sair", command=root.quit, padx=20, pady=10)  
 myButton1.grid(row=10, column=10)
 
-myButton2 = Button(root, text="Eliminar restrição a restrição selecionada.", command=lambda: delete(myListBox))
+myButton2 = Button(root, text="Eliminar restrição a restrição selecionada.", command=lambda: delete(myListBox, fRestriçoes))
 myButton2.grid(row=3,column=0)
 
-myButton4 = Button(root, text="Alterar a restrição selecionada.", command = lambda: alteraRestrição(myListBox))
+myButton4 = Button(root, text="Alterar a restrição selecionada.", command = lambda: alteraRestrição(myListBox, fRestriçoes))
 myButton4.grid(row=4, column=0)
 
-myButton3 = Button(root, text="Criar nova restrição a um novo programa.", command=lambda: adicionaRestrição(myListBox))
+myButton3 = Button(root, text="Criar nova restrição a um novo programa.", command=lambda: adicionaRestrição(myListBox, fRestriçoes))
 myButton3.grid(row=5,column=0)
 
 root.mainloop()
+
+fRestriçoes.close()
