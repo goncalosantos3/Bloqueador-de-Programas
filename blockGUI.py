@@ -52,9 +52,9 @@ def adicionaRestrição(myListBox):
     optionMenus = []
     clicks = []
     while i < 8:       
-        lab1 = Label(top, text="Das")
+        lab1 = Label(top, text="Bloquear das")
         lab2 = Label(top, text=":")
-        lab3 = Label(top, text="Até") 
+        lab3 = Label(top, text="até às") 
         lab1.grid(row=i+1, column=1)
         lab2.grid(row=i+1, column=3)
         lab3.grid(row=i+1, column=5)
@@ -137,21 +137,102 @@ def adicionaRestrição(myListBox):
     top.mainloop()
 
 
-def alteraRestrição():
+def alteraRestrição(myListBox):
     top = Toplevel()
     top.title("Bloqueador de programas")
     #top.iconbitmap('C:/Users/smgon/Phyton/Bloqueador-de-Programas/Sawyer_Pilar.ico')
 
     my_label = Label(top, text = "Alterar restrição ao programa " + myListBox.get(ANCHOR) + " :")
-    my_label.pack()
+    my_label.grid(row=0, column = 0)
+    
+    i = 0
+    optionMenus = []
+    clicks = []
+    while i < 8:       
+        lab1 = Label(top, text="Bloquear das")
+        lab2 = Label(top, text=":")
+        lab3 = Label(top, text="até às") 
+        lab1.grid(row=i+1, column=1)
+        lab2.grid(row=i+1, column=3)
+        lab3.grid(row=i+1, column=5)
+
+        options1 = ["00",1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
+        options2 = ["00", 30]
+
+        clicked1 = StringVar()
+        clicked1.set(options1[0])
+
+        clicked2 = StringVar()
+        clicked2.set(options2[0])
+
+        clicked3 = StringVar()
+        clicked3.set(options1[0])
+
+        clicked4 = StringVar()
+        clicked4.set(options2[0])
+
+        drop1 = OptionMenu(top, clicked1, *options1)
+        drop1.grid(row=i+1,column=2)
+        drop1.configure(state=DISABLED)
+
+        drop2 = OptionMenu(top, clicked2, *options2)
+        drop2.grid(row=i+1, column=4)
+        drop2.configure(state=DISABLED)
+
+        drop3 = OptionMenu(top, clicked3, *options1)
+        drop3.grid(row=i+1,column=6)
+        drop3.configure(state=DISABLED)
+
+        drop4 = OptionMenu(top, clicked4, *options2)
+        drop4.grid(row=i+1, column=8)
+        drop4.configure(state=DISABLED)
+
+        optionMenus.append(drop1)
+        optionMenus.append(drop2)
+        optionMenus.append(drop3)
+        optionMenus.append(drop4)
+
+        clicks.append(clicked1)
+        clicks.append(clicked2)
+        clicks.append(clicked3)
+        clicks.append(clicked4)
+
+        i = i+1
+
+    var1 = IntVar() 
+    var2 = IntVar()
+    var3 = IntVar()
+    var4 = IntVar()
+    var5 = IntVar()
+    var6 = IntVar()
+    var7 = IntVar()
+    var8 = IntVar()
+    c1 = Checkbutton(top, text="Todos os dias", variable= var1, command=lambda: ativarOptionMenu(optionMenus, 0, var1))
+    c2 = Checkbutton(top, text="Segunda-feira", variable= var2, command=lambda: ativarOptionMenu(optionMenus, 4, var1))
+    c3 = Checkbutton(top, text="Terça-feira", variable= var3, command=lambda: ativarOptionMenu(optionMenus, 8, var1))
+    c4 = Checkbutton(top, text="Quarta-feira", variable= var4, command=lambda: ativarOptionMenu(optionMenus, 12, var1))  
+    c5 = Checkbutton(top, text="Quinta-feira", variable= var5, command=lambda: ativarOptionMenu(optionMenus, 16, var1)) 
+    c6 = Checkbutton(top, text="Sexta-feira", variable= var6, command=lambda: ativarOptionMenu(optionMenus, 20, var1))
+    c7 = Checkbutton(top, text="Sábado", variable= var7, command=lambda: ativarOptionMenu(optionMenus, 24, var1))
+    c8 = Checkbutton(top, text="Domingo", variable= var8, command=lambda: ativarOptionMenu(optionMenus, 28, var1))
+    c1.grid(row=1,column=0)
+    c2.grid(row=2,column=0)
+    c3.grid(row=3,column=0)
+    c4.grid(row=4,column=0)
+    c5.grid(row=5,column=0)
+    c6.grid(row=6,column=0)
+    c7.grid(row=7,column=0)
+    c8.grid(row=8,column=0)
+
     #Configurações e alterações possiveis (desenvolver mais tarde)
     aplicar = Button(top, text="Aplicar")
     cancelar = Button(top, text="Cancelar", command = top.destroy)
-    aplicar.pack()
-    cancelar.pack()
+    aplicar.grid(row=10, column=10)
+    cancelar.grid(row=10, column=11)
+
     top.mainloop()
 
-def delete():
+def delete(myListBox):
     myListBox.delete(ANCHOR)
     #Aqui tem que se eliminar a restrição e não apenas da list box!!!
 
@@ -167,17 +248,6 @@ myLabel1 = Label(root, text="Lista de restrições de acesso a programas:") #Ist
 #Meter a Label criada anteriormente no ecrã
 myLabel1.grid(row=1, column=0)
 
-myButton1 = Button(root, text="Sair", command=root.quit, padx=20, pady=10)  
-myButton1.grid(row=10, column=10)
-
-myButton2 = Button(root, text="Eliminar restrição.", command=delete)
-myButton2.grid(row=3,column=0)
-
-myButton4 = Button(root, text="Alterar uma restrição de acesso a um programa já existente", command=alteraRestrição)
-myButton4.grid(row=4, column=0)
-
-myButton3 = Button(root, text="Criar nova restrição a um novo programa", command=lambda: adicionaRestrição(myListBox))
-myButton3.grid(row=5,column=0)
 
 my_frame = Frame(root)
 my_scrollbar = Scrollbar(my_frame, orient=VERTICAL)
@@ -189,5 +259,17 @@ my_scrollbar.config(command=myListBox.yview)
 my_scrollbar.pack(side=RIGHT, fill=Y)
 my_frame.grid(row=2, column=0)
 myListBox.pack()
+
+myButton1 = Button(root, text="Sair", command=root.quit, padx=20, pady=10)  
+myButton1.grid(row=10, column=10)
+
+myButton2 = Button(root, text="Eliminar restrição a restrição selecionada.", command=lambda: delete(myListBox))
+myButton2.grid(row=3,column=0)
+
+myButton4 = Button(root, text="Alterar a restrição selecionada.", command = lambda: alteraRestrição(myListBox))
+myButton4.grid(row=4, column=0)
+
+myButton3 = Button(root, text="Criar nova restrição a um novo programa.", command=lambda: adicionaRestrição(myListBox))
+myButton3.grid(row=5,column=0)
 
 root.mainloop()
