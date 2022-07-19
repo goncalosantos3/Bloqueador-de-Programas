@@ -48,8 +48,8 @@ def aplicaNovaRestrição(clicks, variables, top, myListBox, clicked0, fRestriç
             horas = []
             horas.append(clicks[8].get() + ":" + clicks[9].get())
             horas.append(clicks[10].get() + ":" + clicks[11].get())
-            myListBox.insert(END, clicked0.get() + " bloqueado na Terça-feira das " + horas[0] + " ate as " + horas[1])
-            fRestriçoes.write(clicked0.get() + " bloqueado na Terça-feira das " + horas[0] + " ate as " + horas[1] + "\n")
+            myListBox.insert(END, clicked0.get() + " bloqueado na Terca-feira das " + horas[0] + " ate as " + horas[1])
+            fRestriçoes.write(clicked0.get() + " bloqueado na Terca-feira das " + horas[0] + " ate as " + horas[1] + "\n")
             fRestriçoes.flush()
         if (variables[3].get() == 1):#Quarta-feira
             horas = []
@@ -76,8 +76,8 @@ def aplicaNovaRestrição(clicks, variables, top, myListBox, clicked0, fRestriç
             horas = []
             horas.append(clicks[24].get() + ":" + clicks[25].get())
             horas.append(clicks[26].get() + ":" + clicks[27].get())
-            myListBox.insert(END, clicked0.get() + " bloqueado na Sábado das " + horas[0] + " ate as " + horas[1])
-            fRestriçoes.write(clicked0.get() + " bloqueado na Sábado das " + horas[0] + " ate as " + horas[1] + "\n")
+            myListBox.insert(END, clicked0.get() + " bloqueado na Sabado das " + horas[0] + " ate as " + horas[1])
+            fRestriçoes.write(clicked0.get() + " bloqueado na Sabado das " + horas[0] + " ate as " + horas[1] + "\n")
             fRestriçoes.flush()
         if (variables[7].get() == 1):#Domingo
             horas = []
