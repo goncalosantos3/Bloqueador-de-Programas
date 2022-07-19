@@ -25,8 +25,57 @@ def aplicaNovaRestrição(clicks, variables, top, myListBox, clicked0, fRestriç
         myListBox.insert(END, clicked0.get() + " bloqueado todos os dias das " + horas[0] + " até às " + horas[1])
         fRestriçoes.write(clicked0.get() + " bloqueado todos os dias das " + horas[0] + " até às " + horas[1] + "\n")
         fRestriçoes.flush()
+    else:
+        if (variables[1].get() == 1):#Segunda-feira
+            horas = []
+            horas.append(clicks[4].get() + ":" + clicks[5].get())
+            horas.append(clicks[6].get() + ":" + clicks[7].get())
+            myListBox.insert(END, clicked0.get() + " bloqueado na Segunda-feira das " + horas[0] + " até às " + horas[1])
+            fRestriçoes.write(clicked0.get() + " bloqueado na Segunda-feira das " + horas[0] + " até às " + horas[1] + "\n")
+            fRestriçoes.flush()
+        if (variables[2].get() == 1):#Terça-feira
+            horas = []
+            horas.append(clicks[8].get() + ":" + clicks[9].get())
+            horas.append(clicks[10].get() + ":" + clicks[11].get())
+            myListBox.insert(END, clicked0.get() + " bloqueado na Terça-feira das " + horas[0] + " até às " + horas[1])
+            fRestriçoes.write(clicked0.get() + " bloqueado na Terça-feira das " + horas[0] + " até às " + horas[1] + "\n")
+            fRestriçoes.flush()
+        if (variables[3].get() == 1):#Quarta-feira
+            horas = []
+            horas.append(clicks[12].get() + ":" + clicks[13].get())
+            horas.append(clicks[14].get() + ":" + clicks[15].get())
+            myListBox.insert(END, clicked0.get() + " bloqueado na Quarta-feira das " + horas[0] + " até às " + horas[1])
+            fRestriçoes.write(clicked0.get() + " bloqueado na Quarta-feira das " + horas[0] + " até às " + horas[1] + "\n")
+            fRestriçoes.flush()
+        if (variables[4].get() == 1):#Quinta-feira
+            horas = []
+            horas.append(clicks[16].get() + ":" + clicks[17].get())
+            horas.append(clicks[18].get() + ":" + clicks[19].get())
+            myListBox.insert(END, clicked0.get() + " bloqueado na Quinta-feira das " + horas[0] + " até às " + horas[1])
+            fRestriçoes.write(clicked0.get() + " bloqueado na Quinta-feira das " + horas[0] + " até às " + horas[1] + "\n")
+            fRestriçoes.flush()
+        if (variables[5].get() == 1):#Sexta-feira
+            horas = []
+            horas.append(clicks[20].get() + ":" + clicks[21].get())
+            horas.append(clicks[22].get() + ":" + clicks[23].get())
+            myListBox.insert(END, clicked0.get() + " bloqueado na Sexta-feira das " + horas[0] + " até às " + horas[1])
+            fRestriçoes.write(clicked0.get() + " bloqueado na Sexta-feira das " + horas[0] + " até às " + horas[1] + "\n")
+            fRestriçoes.flush()
+        if (variables[6].get() == 1):#Sábado
+            horas = []
+            horas.append(clicks[24].get() + ":" + clicks[25].get())
+            horas.append(clicks[26].get() + ":" + clicks[27].get())
+            myListBox.insert(END, clicked0.get() + " bloqueado na Sábado das " + horas[0] + " até às " + horas[1])
+            fRestriçoes.write(clicked0.get() + " bloqueado na Sábado das " + horas[0] + " até às " + horas[1] + "\n")
+            fRestriçoes.flush()
+        if (variables[7].get() == 1):#Domingo
+            horas = []
+            horas.append(clicks[28].get() + ":" + clicks[29].get())
+            horas.append(clicks[30].get() + ":" + clicks[31].get())
+            myListBox.insert(END, clicked0.get() + " bloqueado na Domingo das " + horas[0] + " até às " + horas[1])
+            fRestriçoes.write(clicked0.get() + " bloqueado na Domingo das " + horas[0] + " até às " + horas[1] + "\n")
+            fRestriçoes.flush() 
     top.destroy()
-
 
 def ativarOptionMenu(optionMenus, number, var1):
     
@@ -234,17 +283,18 @@ def alteraRestrição(myListBox, fRestriçoes):
 
     top.mainloop()
 
-def delete(myListBox, fRestriçoes):
+def delete(myListBox):
     programa = myListBox.get(ANCHOR)
-    lines = fRestriçoes.readlines()
-    restrições = open('restrições.txt', "w")
     myListBox.delete(ANCHOR)
+    fRead = open('restrições.txt', 'r')
+    lines = fRead.readlines()
+    fRead.close()
+    fWrite = open('restrições.txt', 'w')
     for line in lines:
-        if line != programa:
-            restrições.write(line)
-    restrições.flush()
-    restrições.close()
-    #Aqui tem que se eliminar a restrição e não apenas da list box!!!
+        if line.strip("\n") != programa:
+            fWrite.write(line)
+    fWrite.flush()
+    fWrite.close()
 
 ##################################################################################################################################################################################
 
@@ -277,7 +327,7 @@ myListBox.pack()
 myButton1 = Button(root, text="Sair", command=root.quit, padx=20, pady=10)  
 myButton1.grid(row=10, column=10)
 
-myButton2 = Button(root, text="Eliminar restrição a restrição selecionada.", command=lambda: delete(myListBox, fRestriçoes))
+myButton2 = Button(root, text="Eliminar restrição a restrição selecionada.", command=lambda: delete(myListBox))
 myButton2.grid(row=3,column=0)
 
 myButton4 = Button(root, text="Alterar a restrição selecionada.", command = lambda: alteraRestrição(myListBox, fRestriçoes))
