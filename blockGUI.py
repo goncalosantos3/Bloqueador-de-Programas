@@ -104,7 +104,8 @@ def adicionaRestrição(myListBox, fRestriçoes):
     lab0 = Label(top, text="Programa a restringir:")
     lab0.grid(row=0, column=0)
 
-    programas = ["League of Legends", "Discord"]
+    #Melhor isto, arranjar uma maneira de fazer aparecer a lista de programas instalados e possíveis de bloquear
+    programas = ["League of Legends", "Discord", "Opera Internet Browser"]
 
     clicked0 = StringVar()
     clicked0.set("Selecione o programa!")

@@ -39,7 +39,8 @@ def verificaRestrições():
     listaRestrições = []
     restrições = open('restrições.txt', 'r')
     lines = restrições.readlines()
-    diaDaSemana = datetime.datetime.now().weekday()
+    now = datetime.datetime.now().time()
+    diaDaSemana = datetime.datetime.now()
 
     for line in lines:
 
@@ -52,9 +53,10 @@ def verificaRestrições():
             hora1 = hora1[1]
             hora2 = re.split(" as ", line)
             hora2 = hora2[1].strip("\n")
-            listaRestrições.append(programa)
-            listaRestrições.append(hora1)
-            listaRestrições.append(hora2)
+            hora1 = datetime.datetime.strptime(hora1, '%H:%M').time()
+            hora2 = datetime.datetime.strptime(hora2, '%H:%M').time()
+            if hora1 < now and now < hora2:#Estamos dentro do horário da restrição
+                listaRestrições.append(programa)
         else:
             if re.search("Segunda-feira", line) != None and diaDaSemana == 0:#A restrição é aplicada na Segunda-feira
                 hora1 = re.split(" ate", line)
@@ -62,87 +64,85 @@ def verificaRestrições():
                 hora1 = hora1[1]
                 hora2 = re.split(" as ", line)
                 hora2 = hora2[1].strip("\n")
-                listaRestrições.append(programa)
-                listaRestrições.append(hora1)
-                listaRestrições.append(hora2)
+                hora1 = datetime.datetime.strptime(hora1, '%H:%M').time()
+                hora2 = datetime.datetime.strptime(hora2, '%H:%M').time()
+                if hora1 < now and now < hora2:#Estamos dentro do horário da restrição
+                    listaRestrições.append(programa)
             if re.search("Terca-feira", line) != None and diaDaSemana == 1:#A restrição é aplicada na Terça-feira
                 hora1 = re.split(" ate", line)
                 hora1 = re.split("das ", hora1[0])
                 hora1 = hora1[1]
                 hora2 = re.split(" as ", line)
                 hora2 = hora2[1].strip("\n")
-                listaRestrições.append(programa)
-                listaRestrições.append(hora1)
-                listaRestrições.append(hora2)
+                hora1 = datetime.datetime.strptime(hora1, '%H:%M').time()
+                hora2 = datetime.datetime.strptime(hora2, '%H:%M').time()
+                if hora1 < now and now < hora2:#Estamos dentro do horário da restrição
+                    listaRestrições.append(programa)
             if re.search("Quarta-feira", line) != None and diaDaSemana == 2:#A restrição é aplicada na Quarta-feira
                 hora1 = re.split(" ate", line)
                 hora1 = re.split("das ", hora1[0])
                 hora1 = hora1[1]
                 hora2 = re.split(" as ", line)
                 hora2 = hora2[1].strip("\n")
-                listaRestrições.append(programa)
-                listaRestrições.append(hora1)
-                listaRestrições.append(hora2)
+                hora1 = datetime.datetime.strptime(hora1, '%H:%M').time()
+                hora2 = datetime.datetime.strptime(hora2, '%H:%M').time()
+                if hora1 < now and now < hora2:#Estamos dentro do horário da restrição
+                    listaRestrições.append(programa)
             if re.search("Quinta-feira", line) != None and diaDaSemana == 3:#A restrição é aplicada na Quinta-feira
                 hora1 = re.split(" ate", line)
                 hora1 = re.split("das ", hora1[0])
                 hora1 = hora1[1]
                 hora2 = re.split(" as ", line)
                 hora2 = hora2[1].strip("\n")   
-                listaRestrições.append(programa)
-                listaRestrições.append(hora1)
-                listaRestrições.append(hora2)
+                hora1 = datetime.datetime.strptime(hora1, '%H:%M').time()
+                hora2 = datetime.datetime.strptime(hora2, '%H:%M').time()
+                if hora1 < now and now < hora2:#Estamos dentro do horário da restrição
+                    listaRestrições.append(programa)
             if re.search("Sexta-feira", line) != None and diaDaSemana == 4:#A restrição é aplicada na Sexta-feira
                 hora1 = re.split(" ate", line)
                 hora1 = re.split("das ", hora1[0])
                 hora1 = hora1[1]
                 hora2 = re.split(" as ", line)
                 hora2 = hora2[1].strip("\n")     
-                listaRestrições.append(programa)
-                listaRestrições.append(hora1)
-                listaRestrições.append(hora2)
+                hora1 = datetime.datetime.strptime(hora1, '%H:%M').time()
+                hora2 = datetime.datetime.strptime(hora2, '%H:%M').time()
+                if hora1 < now and now < hora2:#Estamos dentro do horário da restrição
+                    listaRestrições.append(programa)
             if re.search("Sabado", line) != None and diaDaSemana == 5:#A restrição é aplicada no Sábado
                 hora1 = re.split(" ate", line)
                 hora1 = re.split("das ", hora1[0])
                 hora1 = hora1[1]
                 hora2 = re.split(" as ", line)
                 hora2 = hora2[1].strip("\n")
-                listaRestrições.append(programa)
-                listaRestrições.append(hora1)
-                listaRestrições.append(hora2)
+                hora1 = datetime.datetime.strptime(hora1, '%H:%M').time()
+                hora2 = datetime.datetime.strptime(hora2, '%H:%M').time()
+                if hora1 < now and now < hora2:#Estamos dentro do horário da restrição
+                    listaRestrições.append(programa)
             if re.search("Domingo", line) != None and diaDaSemana == 6:#A restrição é aplicada no Domingo
                 hora1 = re.split(" ate", line)
                 hora1 = re.split("das ", hora1[0])
                 hora1 = hora1[1]
                 hora2 = re.split(" as ", line)
                 hora2 = hora2[1].strip("\n")
-                listaRestrições.append(programa)
-                listaRestrições.append(hora1)
-                listaRestrições.append(hora2)
+                hora1 = datetime.datetime.strptime(hora1, '%H:%M').time()
+                hora2 = datetime.datetime.strptime(hora2, '%H:%M').time()
+                if hora1 < now and now < hora2:#Estamos dentro do horário da restrição
+                    listaRestrições.append(programa)
+    
     restrições.close()
     return listaRestrições
 
-
-
 def main():
-    listaRestrições = verificaRestrições()
-    print(listaRestrições)
-    #AddToRegistry()
-    #
-    #ini = datetime.time(8,0)
-#
-    #fim = datetime.time(20,0)
-#
-    #meia_noite = datetime.time(0,0)
-#
-    #while 1:
-    #    verificaRestrições()
-    #    now = datetime.datetime.now().time()
-    #    if now > ini and now < fim:
-    #        os.system("TASKKILL /F /IM LeagueClient.exe") # select process by its names
-    #        time.sleep(30)
-    #    else:
-    #        exit()
+    
+    AddToRegistry()
+    while 1:
+
+       restrições = verificaRestrições()
+       now = datetime.datetime.now().time()
+
+       for programa in restrições:
+            os.system("TASKKILL /F /IM " + programa + ".exe") # select process by its names
+            time.sleep(30)
 
 # Driver Code
 if __name__ == "__main__":
