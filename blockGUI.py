@@ -33,58 +33,58 @@ def aplicaNovaRestrição(clicks, variables, top, myListBox, clicked0, fRestriç
         horas = []
         horas.append(clicks[0].get() + ":" + clicks[1].get())
         horas.append(clicks[2].get() + ":" + clicks[3].get())
-        myListBox.insert(END, clicked0.get() + " bloqueado todos os dias das " + horas[0] + " até às " + horas[1])
-        fRestriçoes.write(clicked0.get() + " bloqueado todos os dias das " + horas[0] + " até às " + horas[1] + "\n")
+        myListBox.insert(END, clicked0.get() + " bloqueado todos os dias das " + horas[0] + " ate as " + horas[1])
+        fRestriçoes.write(clicked0.get() + " bloqueado todos os dias das " + horas[0] + " ate as " + horas[1] + "\n")
         fRestriçoes.flush()
     else:
         if (variables[1].get() == 1):#Segunda-feira
             horas = []
             horas.append(clicks[4].get() + ":" + clicks[5].get())
             horas.append(clicks[6].get() + ":" + clicks[7].get())
-            myListBox.insert(END, clicked0.get() + " bloqueado na Segunda-feira das " + horas[0] + " até às " + horas[1])
-            fRestriçoes.write(clicked0.get() + " bloqueado na Segunda-feira das " + horas[0] + " até às " + horas[1] + "\n")
+            myListBox.insert(END, clicked0.get() + " bloqueado na Segunda-feira das " + horas[0] + " ate as " + horas[1])
+            fRestriçoes.write(clicked0.get() + " bloqueado na Segunda-feira das " + horas[0] + " ate as " + horas[1] + "\n")
             fRestriçoes.flush()
         if (variables[2].get() == 1):#Terça-feira
             horas = []
             horas.append(clicks[8].get() + ":" + clicks[9].get())
             horas.append(clicks[10].get() + ":" + clicks[11].get())
-            myListBox.insert(END, clicked0.get() + " bloqueado na Terça-feira das " + horas[0] + " até às " + horas[1])
-            fRestriçoes.write(clicked0.get() + " bloqueado na Terça-feira das " + horas[0] + " até às " + horas[1] + "\n")
+            myListBox.insert(END, clicked0.get() + " bloqueado na Terça-feira das " + horas[0] + " ate as " + horas[1])
+            fRestriçoes.write(clicked0.get() + " bloqueado na Terça-feira das " + horas[0] + " ate as " + horas[1] + "\n")
             fRestriçoes.flush()
         if (variables[3].get() == 1):#Quarta-feira
             horas = []
             horas.append(clicks[12].get() + ":" + clicks[13].get())
             horas.append(clicks[14].get() + ":" + clicks[15].get())
-            myListBox.insert(END, clicked0.get() + " bloqueado na Quarta-feira das " + horas[0] + " até às " + horas[1])
-            fRestriçoes.write(clicked0.get() + " bloqueado na Quarta-feira das " + horas[0] + " até às " + horas[1] + "\n")
+            myListBox.insert(END, clicked0.get() + " bloqueado na Quarta-feira das " + horas[0] + " ate as " + horas[1])
+            fRestriçoes.write(clicked0.get() + " bloqueado na Quarta-feira das " + horas[0] + " ate as " + horas[1] + "\n")
             fRestriçoes.flush()
         if (variables[4].get() == 1):#Quinta-feira
             horas = []
             horas.append(clicks[16].get() + ":" + clicks[17].get())
             horas.append(clicks[18].get() + ":" + clicks[19].get())
-            myListBox.insert(END, clicked0.get() + " bloqueado na Quinta-feira das " + horas[0] + " até às " + horas[1])
-            fRestriçoes.write(clicked0.get() + " bloqueado na Quinta-feira das " + horas[0] + " até às " + horas[1] + "\n")
+            myListBox.insert(END, clicked0.get() + " bloqueado na Quinta-feira das " + horas[0] + " ate as " + horas[1])
+            fRestriçoes.write(clicked0.get() + " bloqueado na Quinta-feira das " + horas[0] + " ate as " + horas[1] + "\n")
             fRestriçoes.flush()
         if (variables[5].get() == 1):#Sexta-feira
             horas = []
             horas.append(clicks[20].get() + ":" + clicks[21].get())
             horas.append(clicks[22].get() + ":" + clicks[23].get())
-            myListBox.insert(END, clicked0.get() + " bloqueado na Sexta-feira das " + horas[0] + " até às " + horas[1])
-            fRestriçoes.write(clicked0.get() + " bloqueado na Sexta-feira das " + horas[0] + " até às " + horas[1] + "\n")
+            myListBox.insert(END, clicked0.get() + " bloqueado na Sexta-feira das " + horas[0] + " ate as " + horas[1])
+            fRestriçoes.write(clicked0.get() + " bloqueado na Sexta-feira das " + horas[0] + " ate as " + horas[1] + "\n")
             fRestriçoes.flush()
         if (variables[6].get() == 1):#Sábado
             horas = []
             horas.append(clicks[24].get() + ":" + clicks[25].get())
             horas.append(clicks[26].get() + ":" + clicks[27].get())
-            myListBox.insert(END, clicked0.get() + " bloqueado na Sábado das " + horas[0] + " até às " + horas[1])
-            fRestriçoes.write(clicked0.get() + " bloqueado na Sábado das " + horas[0] + " até às " + horas[1] + "\n")
+            myListBox.insert(END, clicked0.get() + " bloqueado na Sábado das " + horas[0] + " ate as " + horas[1])
+            fRestriçoes.write(clicked0.get() + " bloqueado na Sábado das " + horas[0] + " ate as " + horas[1] + "\n")
             fRestriçoes.flush()
         if (variables[7].get() == 1):#Domingo
             horas = []
             horas.append(clicks[28].get() + ":" + clicks[29].get())
             horas.append(clicks[30].get() + ":" + clicks[31].get())
-            myListBox.insert(END, clicked0.get() + " bloqueado na Domingo das " + horas[0] + " até às " + horas[1])
-            fRestriçoes.write(clicked0.get() + " bloqueado na Domingo das " + horas[0] + " até às " + horas[1] + "\n")
+            myListBox.insert(END, clicked0.get() + " bloqueado na Domingo das " + horas[0] + " ate as " + horas[1])
+            fRestriçoes.write(clicked0.get() + " bloqueado na Domingo das " + horas[0] + " ate as " + horas[1] + "\n")
             fRestriçoes.flush() 
     top.destroy()
 
@@ -232,8 +232,10 @@ myLabel1.grid(row=1, column=0)
 my_frame = Frame(root)
 my_scrollbar = Scrollbar(my_frame, orient=VERTICAL)
 
-#global myListBox
 myListBox = Listbox(my_frame, yscrollcommand=my_scrollbar.set, width=70)
+lines = fRestriçoes.readlines()
+for line in lines:
+    myListBox.insert(END, line)
 
 my_scrollbar.config(command=myListBox.yview)
 my_scrollbar.pack(side=RIGHT, fill=Y)

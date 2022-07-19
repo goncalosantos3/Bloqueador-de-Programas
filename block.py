@@ -3,6 +3,7 @@ import time
 import datetime
 import winreg as reg
 import os            
+import re
  
 def AddToRegistry():
  
@@ -33,8 +34,29 @@ def AddToRegistry():
     # now close the opened key
     reg.CloseKey(open)
  
+def verificaRestrições():
+
+    listaRestrições = []
+    restrições = open('restrições.txt', 'r')
+    lines = restrições.readlines()
+    for line in lines:
+        list = re.split("bloqueado", line)
+        programa = list[0].stip(" ")
+        if re.search("todos os dias", line) != None:#A restrição é aplicada todos os dias
+            hora1 = re.split(" até", line)
+            hora1 = re.split("das ", hora1[0])
+            hora1 = hora1[1]
+            hora2 = re.split("às ", line)
+            hora2 = hora2[1].strip("\n")
+        diaDaSemana = datetime.now().weekday()
+    
+    return listaRestrições
+
+
+
 def main():
     AddToRegistry()
+
     ini = datetime.time(8,0)
 
     fim = datetime.time(20,0)
@@ -42,6 +64,7 @@ def main():
     meia_noite = datetime.time(0,0)
 
     while 1:
+        verificaRestrições()
         now = datetime.datetime.now().time()
         if now > ini and now < fim:
             os.system("TASKKILL /F /IM LeagueClient.exe") # select process by its names
