@@ -5,23 +5,45 @@ from turtle import width
 from PIL import ImageTk, Image
 from pyparsing import col
 from tkinter import messagebox
+import winreg
 
 #
 #   O tkinter funciona da seguinte forma:
 #   1. Temos que definir um widget (butão, janela, barra, qualquer merda de interação com o user)
 #   2. Depois, temos que inserir o widget criado no ecrã da maneira que quisermos 
 
-def verificaArgumentos(clicked0):#Esta função verifica se os parâmetros da nova restrição estão todos satisfeitos
+def foo(hive, flag):
+    aReg = winreg.ConnectRegistry(None, hive)
+    aKey = winreg.OpenKey(aReg, r"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall",
+                          0, winreg.KEY_READ | flag)
+
+    count_subkey = winreg.QueryInfoKey(aKey)[0]
+
+    software_list = []
+
+    for i in range(count_subkey):
+        try:
+            asubkey_name = winreg.EnumKey(aKey, i)
+            asubkey = winreg.OpenKey(aKey, asubkey_name)
+            software = winreg.QueryValueEx(asubkey, "DisplayName")[0]
+            software_list.append(software)
+        except EnvironmentError:
+            continue
+
+    return software_list
+
+
+def verificaArgumentos(clicked0, clicks):#Esta função verifica se os parâmetros da nova restrição estão todos satisfeitos
 
     if clicked0.get() == "Selecione o programa!":#Não foi inserido o programa
         messagebox.showinfo("Erro ao criar nova restrição!", "O nome do programa que quer restringir tem de ser inserido.")
         return 0
-    
+        
     return 1
 
 def aplicaNovaRestrição(clicks, variables, top, myListBox, clicked0, fRestriçoes):
     
-    value = verificaArgumentos(clicked0)
+    value = verificaArgumentos(clicked0, clicks)
 
     #Variables-> Dias da semana em que a restrição se aplica
     #Clicks-> As horas de cada dia em que a restrição se aplica
@@ -29,63 +51,65 @@ def aplicaNovaRestrição(clicks, variables, top, myListBox, clicked0, fRestriç
     #myListBox-> uma lista que mostra todas as restrições ativas
     #clicked0-> nome do programa ao qual a nova restrição se aplica
 
-    if (variables[0].get() == 1) and value == 1:#Todos os dias
-        horas = []
-        horas.append(clicks[0].get() + ":" + clicks[1].get())
-        horas.append(clicks[2].get() + ":" + clicks[3].get())
-        myListBox.insert(END, clicked0.get() + " bloqueado todos os dias das " + horas[0] + " ate as " + horas[1])
-        fRestriçoes.write(clicked0.get() + " bloqueado todos os dias das " + horas[0] + " ate as " + horas[1] + "\n")
-        fRestriçoes.flush()
-    else:
-        if (variables[1].get() == 1):#Segunda-feira
+    if value == 1:
+        if (variables[0].get() == 1):#Todos os dias
             horas = []
-            horas.append(clicks[4].get() + ":" + clicks[5].get())
-            horas.append(clicks[6].get() + ":" + clicks[7].get())
-            myListBox.insert(END, clicked0.get() + " bloqueado na Segunda-feira das " + horas[0] + " ate as " + horas[1])
-            fRestriçoes.write(clicked0.get() + " bloqueado na Segunda-feira das " + horas[0] + " ate as " + horas[1] + "\n")
+            horas.append(clicks[0].get() + ":" + clicks[1].get())
+            horas.append(clicks[2].get() + ":" + clicks[3].get())
+            myListBox.insert(END, clicked0.get() + " bloqueado todos os dias das " + horas[0] + " ate as " + horas[1])
+            fRestriçoes.write(clicked0.get() + " bloqueado todos os dias das " + horas[0] + " ate as " + horas[1] + "\n")
             fRestriçoes.flush()
-        if (variables[2].get() == 1):#Terça-feira
-            horas = []
-            horas.append(clicks[8].get() + ":" + clicks[9].get())
-            horas.append(clicks[10].get() + ":" + clicks[11].get())
-            myListBox.insert(END, clicked0.get() + " bloqueado na Terca-feira das " + horas[0] + " ate as " + horas[1])
-            fRestriçoes.write(clicked0.get() + " bloqueado na Terca-feira das " + horas[0] + " ate as " + horas[1] + "\n")
-            fRestriçoes.flush()
-        if (variables[3].get() == 1):#Quarta-feira
-            horas = []
-            horas.append(clicks[12].get() + ":" + clicks[13].get())
-            horas.append(clicks[14].get() + ":" + clicks[15].get())
-            myListBox.insert(END, clicked0.get() + " bloqueado na Quarta-feira das " + horas[0] + " ate as " + horas[1])
-            fRestriçoes.write(clicked0.get() + " bloqueado na Quarta-feira das " + horas[0] + " ate as " + horas[1] + "\n")
-            fRestriçoes.flush()
-        if (variables[4].get() == 1):#Quinta-feira
-            horas = []
-            horas.append(clicks[16].get() + ":" + clicks[17].get())
-            horas.append(clicks[18].get() + ":" + clicks[19].get())
-            myListBox.insert(END, clicked0.get() + " bloqueado na Quinta-feira das " + horas[0] + " ate as " + horas[1])
-            fRestriçoes.write(clicked0.get() + " bloqueado na Quinta-feira das " + horas[0] + " ate as " + horas[1] + "\n")
-            fRestriçoes.flush()
-        if (variables[5].get() == 1):#Sexta-feira
-            horas = []
-            horas.append(clicks[20].get() + ":" + clicks[21].get())
-            horas.append(clicks[22].get() + ":" + clicks[23].get())
-            myListBox.insert(END, clicked0.get() + " bloqueado na Sexta-feira das " + horas[0] + " ate as " + horas[1])
-            fRestriçoes.write(clicked0.get() + " bloqueado na Sexta-feira das " + horas[0] + " ate as " + horas[1] + "\n")
-            fRestriçoes.flush()
-        if (variables[6].get() == 1):#Sábado
-            horas = []
-            horas.append(clicks[24].get() + ":" + clicks[25].get())
-            horas.append(clicks[26].get() + ":" + clicks[27].get())
-            myListBox.insert(END, clicked0.get() + " bloqueado na Sabado das " + horas[0] + " ate as " + horas[1])
-            fRestriçoes.write(clicked0.get() + " bloqueado na Sabado das " + horas[0] + " ate as " + horas[1] + "\n")
-            fRestriçoes.flush()
-        if (variables[7].get() == 1):#Domingo
-            horas = []
-            horas.append(clicks[28].get() + ":" + clicks[29].get())
-            horas.append(clicks[30].get() + ":" + clicks[31].get())
-            myListBox.insert(END, clicked0.get() + " bloqueado na Domingo das " + horas[0] + " ate as " + horas[1])
-            fRestriçoes.write(clicked0.get() + " bloqueado na Domingo das " + horas[0] + " ate as " + horas[1] + "\n")
-            fRestriçoes.flush() 
+        else:
+            if (variables[1].get() == 1):#Segunda-feira
+                horas = []
+                horas.append(clicks[4].get() + ":" + clicks[5].get())
+                horas.append(clicks[6].get() + ":" + clicks[7].get())
+                myListBox.insert(END, clicked0.get() + " bloqueado na Segunda-feira das " + horas[0] + " ate as " + horas[1])
+                fRestriçoes.write(clicked0.get() + " bloqueado na Segunda-feira das " + horas[0] + " ate as " + horas[1] + "\n")
+                fRestriçoes.flush()
+            if (variables[2].get() == 1):#Terça-feira
+                horas = []
+                horas.append(clicks[8].get() + ":" + clicks[9].get())
+                horas.append(clicks[10].get() + ":" + clicks[11].get())
+                myListBox.insert(END, clicked0.get() + " bloqueado na Terca-feira das " + horas[0] + " ate as " + horas[1])
+                fRestriçoes.write(clicked0.get() + " bloqueado na Terca-feira das " + horas[0] + " ate as " + horas[1] + "\n")
+                fRestriçoes.flush()
+            if (variables[3].get() == 1):#Quarta-feira
+                horas = []
+                horas.append(clicks[12].get() + ":" + clicks[13].get())
+                horas.append(clicks[14].get() + ":" + clicks[15].get())
+                myListBox.insert(END, clicked0.get() + " bloqueado na Quarta-feira das " + horas[0] + " ate as " + horas[1])
+                fRestriçoes.write(clicked0.get() + " bloqueado na Quarta-feira das " + horas[0] + " ate as " + horas[1] + "\n")
+                fRestriçoes.flush()
+            if (variables[4].get() == 1):#Quinta-feira
+                horas = []
+                horas.append(clicks[16].get() + ":" + clicks[17].get())
+                horas.append(clicks[18].get() + ":" + clicks[19].get())
+                myListBox.insert(END, clicked0.get() + " bloqueado na Quinta-feira das " + horas[0] + " ate as " + horas[1])
+                fRestriçoes.write(clicked0.get() + " bloqueado na Quinta-feira das " + horas[0] + " ate as " + horas[1] + "\n")
+                fRestriçoes.flush()
+            if (variables[5].get() == 1):#Sexta-feira
+                horas = []
+                horas.append(clicks[20].get() + ":" + clicks[21].get())
+                horas.append(clicks[22].get() + ":" + clicks[23].get())
+                myListBox.insert(END, clicked0.get() + " bloqueado na Sexta-feira das " + horas[0] + " ate as " + horas[1])
+                fRestriçoes.write(clicked0.get() + " bloqueado na Sexta-feira das " + horas[0] + " ate as " + horas[1] + "\n")
+                fRestriçoes.flush()
+            if (variables[6].get() == 1):#Sábado
+                horas = []
+                horas.append(clicks[24].get() + ":" + clicks[25].get())
+                horas.append(clicks[26].get() + ":" + clicks[27].get())
+                myListBox.insert(END, clicked0.get() + " bloqueado na Sabado das " + horas[0] + " ate as " + horas[1])
+                fRestriçoes.write(clicked0.get() + " bloqueado na Sabado das " + horas[0] + " ate as " + horas[1] + "\n")
+                fRestriçoes.flush()
+            if (variables[7].get() == 1):#Domingo
+                horas = []
+                horas.append(clicks[28].get() + ":" + clicks[29].get())
+                horas.append(clicks[30].get() + ":" + clicks[31].get())
+                myListBox.insert(END, clicked0.get() + " bloqueado na Domingo das " + horas[0] + " ate as " + horas[1])
+                fRestriçoes.write(clicked0.get() + " bloqueado na Domingo das " + horas[0] + " ate as " + horas[1] + "\n")
+                fRestriçoes.flush() 
+    
     top.destroy()
 
 def ativarOptionMenu(optionMenus, number, var1):
@@ -95,7 +119,7 @@ def ativarOptionMenu(optionMenus, number, var1):
         optionMenus[number+i].configure(state = NORMAL)
         i=i+1
 
-def adicionaRestrição(myListBox, fRestriçoes):
+def adicionaRestrição(myListBox, fRestriçoes, programas):
     top = Toplevel()
     top.title("Bloqueador de programas") 
     #top.iconbitmap('C:/Users/smgon/Phyton/Bloqueador-de-Programas/Sawyer_Pilar.ico')
@@ -103,9 +127,6 @@ def adicionaRestrição(myListBox, fRestriçoes):
 
     lab0 = Label(top, text="Programa a restringir:")
     lab0.grid(row=0, column=0)
-
-    #Melhor isto, arranjar uma maneira de fazer aparecer a lista de programas instalados e possíveis de bloquear
-    programas = ["League of Legends", "Discord", "Opera Internet Browser"]
 
     clicked0 = StringVar()
     clicked0.set("Selecione o programa!")
@@ -124,7 +145,7 @@ def adicionaRestrição(myListBox, fRestriçoes):
         lab3.grid(row=i+1, column=5)
 
         options1 = ["00",1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
-        options2 = ["00", 30]
+        options2 = ["00", 10, 20, 30, 40, 50]
 
         clicked1 = StringVar()
         clicked1.set(options1[0])
@@ -229,6 +250,8 @@ myLabel1 = Label(root, text="Lista de restrições de acesso a programas:") #Ist
 #Meter a Label criada anteriormente no ecrã
 myLabel1.grid(row=1, column=0)
 
+programas = foo(winreg.HKEY_LOCAL_MACHINE, winreg.KEY_WOW64_32KEY) + foo(winreg.HKEY_LOCAL_MACHINE, winreg.KEY_WOW64_64KEY) + foo(winreg.HKEY_CURRENT_USER, 0)
+programas.sort()
 
 my_frame = Frame(root)
 my_scrollbar = Scrollbar(my_frame, orient=VERTICAL)
@@ -252,7 +275,7 @@ myButton2.grid(row=3,column=0)
 #myButton4 = Button(root, text="Alterar a restrição selecionada.", command = lambda: alteraRestrição(myListBox, fRestriçoes))
 #myButton4.grid(row=4, column=0)
 
-myButton3 = Button(root, text="Criar nova restrição a um novo programa.", command=lambda: adicionaRestrição(myListBox, fRestriçoes))
+myButton3 = Button(root, text="Criar nova restrição a um novo programa.", command=lambda: adicionaRestrição(myListBox, fRestriçoes, programas))
 myButton3.grid(row=5,column=0)
 
 root.mainloop()
